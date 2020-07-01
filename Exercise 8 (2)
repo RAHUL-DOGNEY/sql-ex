@@ -1,0 +1,12 @@
+--Find the makers producing PCs but not laptops.
+
+SELECT tbl1.maker
+FROM
+  (SELECT DISTINCT maker
+   FROM product
+   WHERE TYPE = 'PC') AS tbl1
+LEFT JOIN
+  (SELECT DISTINCT maker
+   FROM product
+   WHERE TYPE = 'Laptop') AS tbl2 ON tbl1.maker = tbl2.maker
+WHERE tbl2.maker IS NULL
