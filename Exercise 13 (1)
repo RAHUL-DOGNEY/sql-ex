@@ -1,0 +1,6 @@
+-- Find out the average speed of the PCs produced by maker A.
+
+SELECT avg(speed)
+FROM PC
+LEFT JOIN Product p ON p.model = PC.model
+WHERE maker = 'A'
