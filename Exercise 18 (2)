@@ -1,0 +1,13 @@
+-- Find the makers of the cheapest color printers.
+Result set: maker, price.
+
+
+SELECT DISTINCT maker,
+                price
+FROM Printer p
+LEFT JOIN Product pr ON pr.model = p.model
+WHERE price =
+    (SELECT min(price)
+     FROM Printer
+     WHERE color = 'y')
+  AND color = 'y'
