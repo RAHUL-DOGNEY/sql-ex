@@ -1,0 +1,11 @@
+-- Get the laptop models that have a speed smaller than the speed of any PC.
+Result set: type, model, speed.
+
+SELECT DISTINCT TYPE,
+                l.model,
+                speed
+FROM Laptop l
+LEFT JOIN Product p ON p.model = l.model
+WHERE speed <
+    (SELECT min(speed)
+     FROM PC)
