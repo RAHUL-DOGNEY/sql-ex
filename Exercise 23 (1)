@@ -11,4 +11,4 @@ FROM
    WHERE speed >= 750) AS tbl1
 LEFT JOIN Product p ON tbl1.model = p.model
 GROUP BY maker
-HAVING count(DISTINCT TYPE) = 2
+HAVING count(DISTINCT type) = 2
