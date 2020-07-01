@@ -1,11 +1,16 @@
 --Get the models and prices for all commercially available products (of any type) produced by maker B.
 
-SELECT tbl1.model, price from
-(SELECT model, price FROM PC
-UNION
-SELECT model, price FROM Laptop
-UNION
-SELECT model, price FROM Printer) AS tbl1
-INNER JOIN Product p
-ON p.model = tbl1.model
+SELECT tbl1.model,
+       price
+FROM
+  (SELECT model,
+          price
+   FROM PC
+   UNION SELECT model,
+                price
+   FROM Laptop
+   UNION SELECT model,
+                price
+   FROM Printer) AS tbl1
+INNER JOIN Product p ON p.model = tbl1.model
 WHERE maker = 'B'
