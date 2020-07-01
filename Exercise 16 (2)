@@ -1,0 +1,20 @@
+-- Get pairs of PC models with identical speeds and the same RAM capacity. Each resulting pair should be displayed only once, i.e. (i, j) but not (j, i).
+Result set: model with the bigger number, model with the smaller number, speed, and RAM.
+
+SELECT DISTINCT tbl1.model,
+                tbl2.model,
+                tbl1.speed,
+                tbl1.ram
+FROM
+  (SELECT model,
+          speed,
+          ram
+   FROM PC) AS tbl1
+LEFT JOIN
+  (SELECT model,
+          speed,
+          ram
+   FROM PC) AS tbl2 ON tbl1.speed = tbl2.speed
+AND tbl1.ram = tbl2.ram
+WHERE tbl1.model <> tbl2.model
+  AND tbl1.model > tbl2.model
