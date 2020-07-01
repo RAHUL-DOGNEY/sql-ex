@@ -1,0 +1,14 @@
+-- Get the makers producing both PCs having a speed of 750 MHz or higher and laptops with a speed of 750 MHz or higher.
+Result set: maker
+
+SELECT maker
+FROM
+  (SELECT model
+   FROM PC
+   WHERE speed >= 750
+   UNION SELECT model
+   FROM Laptop
+   WHERE speed >= 750) AS tbl1
+LEFT JOIN Product p ON tbl1.model = p.model
+GROUP BY maker
+HAVING count(DISTINCT TYPE) = 2
