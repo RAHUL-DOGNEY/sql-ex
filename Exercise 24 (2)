@@ -1,0 +1,25 @@
+-- List the models of any type having the highest price of all products present in the database.
+
+SELECT model
+FROM
+  (SELECT model,
+          price
+   FROM PC
+   UNION SELECT model,
+                price
+   FROM laptop
+   UNION SELECT model,
+                price
+   FROM printer) AS all_models
+WHERE price IN
+    (SELECT max(price)
+     FROM
+       (SELECT model,
+               price
+        FROM PC
+        UNION SELECT model,
+                     price
+        FROM laptop
+        UNION SELECT model,
+                     price
+        FROM printer) AS maxprice)
