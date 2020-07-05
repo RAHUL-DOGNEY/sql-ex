@@ -6,7 +6,7 @@ SELECT i.point,
        inc,
        OUT
 FROM Income_o i
-LEFT OUTER JOIN Outcome_o o ON o.point = i.point
+LEFT JOIN Outcome_o o ON o.point = i.point
 AND o.date = i.date
 UNION
 SELECT o.point,
@@ -14,5 +14,5 @@ SELECT o.point,
        inc,
        OUT
 FROM Income_o i
-RIGHT OUTER JOIN Outcome_o o ON o.point = i.point
+RIGHT JOIN Outcome_o o ON o.point = i.point
 AND o.date = i.date
