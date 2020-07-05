@@ -1,0 +1,19 @@
+--Find out the average price of PCs and laptops produced by maker A.
+Result set: one overall average price for all items.
+
+SELECT sum(price)/sum(models)
+FROM
+  (SELECT sum(price) AS price,
+          count(model) AS models
+   FROM PC
+   WHERE model IN
+       (SELECT DISTINCT model
+        FROM product
+        WHERE maker = 'A')
+   UNION SELECT sum(price) AS price,
+                count(model) AS models
+   FROM laptop
+   WHERE model IN
+       (SELECT DISTINCT model
+        FROM product
+        WHERE maker = 'A')) AS tbl
