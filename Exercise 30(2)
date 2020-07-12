@@ -1,0 +1,24 @@
+--Under the assumption that receipts of money (inc) and payouts (out) can be registered any number of times a day for each collection point [i.e. the code column is the primary key], display a table with one corresponding row for each operating date of each collection point.
+Result set: point, date, total payout per day (out), total money intake per day (inc).
+Missing values are considered to be NULL.
+
+
+SELECT CASE
+           WHEN i.point IS NULL THEN o.point
+           ELSE i.point
+       END,
+       CASE
+           WHEN i.date IS NULL THEN o.date
+           ELSE i.date
+       END,
+       OUT,
+       inc
+FROM
+  (SELECT POINT, date, sum(inc) AS inc
+   FROM income
+   GROUP BY POINT, date) AS i
+FULL OUTER JOIN
+  (SELECT POINT, date, sum(OUT) AS OUT
+   FROM outcome
+   GROUP BY POINT, date) AS o ON i.point = o.point
+AND i.date = o.date
